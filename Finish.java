@@ -1,5 +1,5 @@
-import java.util.Arrays;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 /** main class for the dart game, it will ask the user which game they are playing 
  * and then update the score for each player until one of them wins by reaching exactly 
@@ -15,11 +15,15 @@ public class Finish{
      * 0 with a double.
      * @param args
      */
+    static List<Integer> dartsStats = new ArrayList<>();
     public static void main(String[] args){
-        int game = gettingGame();
+        int game = Game.gettingGame();
         int score1 = game;
         int score2 = game;
-        do { 
+        while (score1>0 && score2>0){ 
+            if(score1 == 0){
+                break;
+            }
             score1 = updatingScore(score1, "Player 1");
             System.out.println("Player 1: " + score1);
             if(score1 == 0){
@@ -27,23 +31,9 @@ public class Finish{
             }
             score2 = updatingScore(score2, "Player 2");
             System.out.println("Player 2: " + score2);
-        } while (score1>0 && score2>0);
-        
-    }
-    /**
-     * gets the game number from the user, it must be 301, 401, or 501. 
-     * If the user inputs an invalid number, it will throw an IllegalArgumentException.
-     * @return the game number
-     */
-    public static int gettingGame(){
-        Scanner sc1 = new Scanner(System.in);
-        System.out.println("please input which game you are playing");
-        int num = sc1.nextInt();
-        if(num != 301 && num != 401 && num != 501){
-            throw new IllegalArgumentException("Game must be 301,401 or 501");
         }
-        return num;
-
+        
+        Stats.Statistics(dartsStats);
     }
     /**
      * this method will check if the player has won by reaching exactly 0 
@@ -57,53 +47,31 @@ public class Finish{
         System.out.println( player + ", please input your three darts:");
         Scanner sc1 = new Scanner(System.in);
         int newscore = score;
-        findCheckout(newscore);
+        Checkout.findCheckout(newscore);
         for(int i = 3; i>0; i--){
             int dart = sc1.nextInt();
             newscore = score - dart; 
-            if(newscore == 0 && checkingValidDoubles(dart)){
+            if(newscore == 0 && Doubles.checkingValidDoubles(dart)){
                 System.out.println("Congratulations you win!");
+                storingStatistics(dart);
                 return 0;
-            } else if(newscore == 0 && !checkingValidDoubles(dart)){
+            } else if(newscore == 0 && !Doubles.checkingValidDoubles(dart)){
                 System.out.println("You must finish on a double!");
+                storingStatistics(0);
                 return newscore+dart;
             } else if(newscore <= 1 && score != 0){
                 System.out.println("bust!");
+                storingStatistics(0);
                 return newscore+dart;
             }else{
                 score = newscore;
-                findCheckout(newscore);
+                Checkout.findCheckout(newscore);
+                storingStatistics(dart);
             }
         }
         return newscore;
     }
-    /**
-     * this method checks if the dart thrown is a valid double
-     * @param dart
-     * @return boolean
-     */
-    public static boolean checkingValidDoubles(int dart){
-        int[] validDoubles = {2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,50}; 
-        for(int i: validDoubles){
-            if(dart == i){
-                return true;
-            }
-        }
-        return false;
-    }
-    /**
-     * this method uses the Checkout class to find the checkout options 
-     * for the current score if any and prints them out to the user.
-     * @param score
-     */
-    public static void findCheckout(int score){
-        if(score > 170){
-            return;
-        }
-        Map<Integer, String[]> checkoutMap = Checkout.findCheckout();
-        String[] checkout = checkoutMap.get(score);
-        if(checkout != null){
-            System.out.println("Checkout options for " + score + ": " + Arrays.toString(checkout));
-        }
+    public static void storingStatistics(int dart){
+        dartsStats.add(dart);
     }
 }
