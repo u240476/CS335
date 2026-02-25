@@ -39,9 +39,11 @@ public class Stats{
         }
         if(dartsStatsArray.length == 0){
             threeDartAverage = 0;
+        }else{
+            threeDartAverage /= (dartsStatsArray.length);
+            threeDartAverage = Math.round(threeDartAverage*3);
         }
-        threeDartAverage /= (dartsStatsArray.length);
-        threeDartAverage = Math.round(threeDartAverage*3);
+       
         
         int TripleTwentyCount = Collections.frequency(dartsStats, 60);
         int bullseyeCount = Collections.frequency(dartsStats, 50);
