@@ -2,7 +2,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 /**
- * This clqss contains a final hash table of all possible darts checkout combinations
+ * This class contains a final hash table of all possible darts checkout combinations
  * to allow the user to see if they can win on their current hand and what they need to 
  * throw in order to win
  * @author Josh Reynolds
@@ -177,9 +177,8 @@ public class Checkout{
         return checkoutMap;
     }
     /**
-     * main method for testing the checkout map during dev, 
-     * not used in Finish.java
-     * @param args
+     * this method will find the checkout options for the player's current score if they are 170 or below,
+     * @param score
      */
     public static void findCheckout(int score){
         if(score > 170){
