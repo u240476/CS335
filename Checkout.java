@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 /**
@@ -180,15 +181,14 @@ public class Checkout{
      * not used in Finish.java
      * @param args
      */
-    public static void main(String[] args) {
-        Map<Integer, String[]> checkoutMap = findCheckout();
-        String[] item = checkoutMap.get(100);
-
-        if (item != null) {
-            for(String i: item){
-            System.out.print(i + "  ");
-            }
-            System.out.println(); 
+    public static void findCheckout(int score){
+        if(score > 170){
+            return;
+        }
+        Map<Integer, String[]> checkoutMap = Checkout.findCheckout();
+        String[] checkout = checkoutMap.get(score);
+        if(checkout != null){
+            System.out.println("Checkout options for " + score + ": " + Arrays.toString(checkout));
         }
     }
 }
