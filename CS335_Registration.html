@@ -1,0 +1,30 @@
+<!doctype html>
+<body lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AccountDetailsRegistration</title>
+        <link rel="stylesheet" href="CS335_styles.css">
+    </head>
+    <body>
+        <div class="user-details-form-container">
+            <form action="/submit" method ="POST">
+                <h1> Register your details</h1>
+                <!-- prompting the user for their Name -->
+                <input type="text" id="Name" name="Name" placeholder="Name" class="Name">
+                <!-- prompting the user for their Email -->
+                <input type="email" id="Email" name="Email" placeholder="Email" class="Email">
+                <!-- prompting user for their password-->
+                <input type="password" id="Password" name="Password" placeholder="Password" class="Password">
+                <!--  submit button for when the user has filled out all of the fields above  -->
+                <input type="submit" value="submit" class="confirmation-button">
+                <div class="links-section">
+                    <section class="login-link">
+                        <p>already have an account? </p>
+                        <a href="CS335_Login.html"> Login here</a>
+                    </section>
+                </div> 
+            </form>
+        </div>
+    </body>
+</html>
