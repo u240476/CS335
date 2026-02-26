@@ -21,9 +21,6 @@ public class Finish{
         int score1 = game;
         int score2 = game;
         while (score1>0 && score2>0){ 
-            if(score1 == 0){
-                break;
-            }
             score1 = updatingScore(score1, "Player 1");
             System.out.println("Player 1: " + score1);
             if(score1 == 0){
@@ -49,7 +46,15 @@ public class Finish{
         int newscore = score;
         Checkout.findCheckout(newscore);
         for(int i = 3; i>0; i--){
-            int dart = sc1.nextInt();
+            int dart = 0;
+            while (true) { 
+                dart = sc1.nextInt();
+                if(Darts.checkingValidDarts(dart)){
+                    break;
+                }else{
+                    System.out.println("Invalid dart, please enter a valid dart:");
+                }
+            }
             newscore = score - dart; 
             if(newscore == 0 && Doubles.checkingValidDoubles(dart)){
                 System.out.println("Congratulations you win!");
