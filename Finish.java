@@ -1,3 +1,4 @@
+package com.example;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -16,18 +17,28 @@ public class Finish{
      * @param args
      */
     static List<Integer> dartsStats = new ArrayList<>();
+    final static ArrayList<String> avaliableBots = new ArrayList<>();
+    
+    static {
+        avaliableBots.add("Luke Littler");
+        avaliableBots.add("Michael van Gerwen");
+        avaliableBots.add("Luke Humphries");
+    }
     public static void main(String[] args){
+        Scanner sc1 = new Scanner(System.in);
         int game = Game.gettingGame();
         int score1 = game;
         int score2 = game;
+        String player2 = CheckingIfProBot();
+
         while (score1>0 && score2>0){ 
             score1 = updatingScore(score1, "Player 1");
             System.out.println("Player 1: " + score1);
             if(score1 == 0){
                 break;
             }
-            score2 = updatingScore(score2, "Player 2");
-            System.out.println("Player 2: " + score2);
+            score2 = updatingScore(score2, player2);
+            System.out.println(player2 + ": " + score2);
         }
         
         Stats.Statistics(dartsStats);
@@ -44,17 +55,27 @@ public class Finish{
         System.out.println( player + ", please input your three darts:");
         Scanner sc1 = new Scanner(System.in);
         int newscore = score;
-        Checkout.findCheckout(newscore);
+        Checkout.findCheckout(newscore, "Finish");
+        
         for(int i = 3; i>0; i--){
             int dart = 0;
+            if (avaliableBots.contains(player)) {
+                    
+                    dart = ProBot.ProPlayer(newscore);
+                    System.out.println(player + " throws dart: " + dart);
+                } else
+            {
             while (true) { 
+                
                 dart = sc1.nextInt();
+                
                 if(Darts.checkingValidDarts(dart)){
                     break;
                 }else{
                     System.out.println("Invalid dart, please enter a valid dart:");
                 }
             }
+        }
             newscore = score - dart; 
             if(newscore == 0 && Doubles.checkingValidDoubles(dart)){
                 System.out.println("Congratulations you win!");
@@ -70,7 +91,7 @@ public class Finish{
                 return newscore+dart;
             }else{
                 score = newscore;
-                Checkout.findCheckout(newscore);
+                Checkout.findCheckout(newscore, "Finish");
                 storingStatistics(dart);
             }
         }
@@ -78,5 +99,24 @@ public class Finish{
     }
     public static void storingStatistics(int dart){
         dartsStats.add(dart);
+    }
+    public static String CheckingIfProBot(){
+        Scanner sc1 = new Scanner(System.in);
+        System.out.println("would you like to play a pro bot");
+        String answer = sc1.nextLine();
+        switch (answer) {
+            case "no" -> {
+                return "player 2";
+            }
+            case "yes" -> {
+                System.out.println("if you would like to play one of our bots please enter their name");
+                String player2 = sc1.nextLine();
+                Stats.getPlayerTwoName(player2);
+                double[] stats = BuildingProPlayer.ChoosingPlayer(player2);
+                ProBot.AssigningStats(stats);
+                return player2;
+            }
+            default -> throw new IllegalArgumentException("Invalid input, please enter yes or no");
+        }
     }
 }
