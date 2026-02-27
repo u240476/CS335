@@ -18,6 +18,7 @@ public class Finish{
      */
     static List<Integer> dartsStats = new ArrayList<>();
     final static ArrayList<String> avaliableBots = new ArrayList<>();
+    static Scanner sc1 = new Scanner(System.in);  // Single scanner for entire class
     
     static {
         avaliableBots.add("Luke Littler");
@@ -25,7 +26,6 @@ public class Finish{
         avaliableBots.add("Luke Humphries");
     }
     public static void main(String[] args){
-        Scanner sc1 = new Scanner(System.in);
         int game = Game.gettingGame();
         int score1 = game;
         int score2 = game;
@@ -53,7 +53,6 @@ public class Finish{
      */
     public static int updatingScore(int score, String player){
         System.out.println( player + ", please input your three darts:");
-        Scanner sc1 = new Scanner(System.in);
         int newscore = score;
         Checkout.findCheckout(newscore, "Finish");
         
@@ -61,21 +60,19 @@ public class Finish{
             int dart = 0;
             if (avaliableBots.contains(player)) {
                     
-                    dart = ProBot.ProPlayer(newscore);
-                    System.out.println(player + " throws dart: " + dart);
-                } else
-            {
-            while (true) { 
-                
-                dart = sc1.nextInt();
-                
-                if(Darts.checkingValidDarts(dart)){
-                    break;
-                }else{
-                    System.out.println("Invalid dart, please enter a valid dart:");
-                }
+                dart = ProBot.ProPlayer(newscore);
+                System.out.println(player + " throws dart: " + dart);
+            }else{
+                System.out.println("Enter dart " + (4 - i) + ":");
+                while (true) { 
+                    dart = sc1.nextInt();
+                    if(Darts.checkingValidDarts(dart)){
+                        break;
+                        }else{
+                            System.out.println("Invalid dart, please enter a valid dart:");
+                        }
+                    }
             }
-        }
             newscore = score - dart; 
             if(newscore == 0 && Doubles.checkingValidDoubles(dart)){
                 System.out.println("Congratulations you win!");
@@ -101,7 +98,6 @@ public class Finish{
         dartsStats.add(dart);
     }
     public static String CheckingIfProBot(){
-        Scanner sc1 = new Scanner(System.in);
         System.out.println("would you like to play a pro bot");
         String answer = sc1.nextLine();
         switch (answer) {
@@ -110,6 +106,7 @@ public class Finish{
             }
             case "yes" -> {
                 System.out.println("if you would like to play one of our bots please enter their name");
+                System.out.println("avaliable bots are Luke Littler, Michael van Gerwen and Luke Humphries");
                 String player2 = sc1.nextLine();
                 Stats.getPlayerTwoName(player2);
                 double[] stats = BuildingProPlayer.ChoosingPlayer(player2);
