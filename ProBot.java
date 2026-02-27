@@ -3,23 +3,42 @@ package com.example;
 import java.util.Map;
 
 public class ProBot {
-    final static int[] boardList = {20,1,18,4,13,6,10,15,2,17,3,19,7,16,8,11,14,9,12,5}; 
-    final static double TriplePercentage = 47.6; 
-    final static double NumberPercentage = 42.4;
-    final static double leftPercentage = 5.0;
-    final static double rightPercentage = 5.0;
-    final static double checkoutPercentage = 75.5;
-    final static double checkoutNumberPercentage = 12.5;
-    final static double outPercentage = 12.0;
-    final static double twentyChance = 80.0;
-    final static double nineteenChance = 10.0;
-    final static double eighteenChance = 10.0;
+     static int[] boardList = {20,1,18,4,13,6,10,15,2,17,3,19,7,16,8,11,14,9,12,5}; 
+      static double TriplePercentage = 0.0; 
+     static double NumberPercentage = 0.0;
+     static double leftPercentage = 0.0;
+     static double rightPercentage = 0.0;
+     static double checkoutPercentage = 0.0;
+     static double checkoutNumberPercentage = 0.0;
+     static double outPercentage = 0.0;
+     static double twentyChance = 0.0;
+     static double nineteenChance = 0.0;
+     static double eighteenChance = 0.0;
 
-    public static int lukeLittler(int score){
+     public static void AssigningStats(
+        double[] playerStatistics
+     ){
+        ProBot.TriplePercentage = playerStatistics[0];
+        ProBot.NumberPercentage = playerStatistics[1];
+        ProBot.leftPercentage = playerStatistics[2];
+        ProBot.rightPercentage = playerStatistics[3];
+        ProBot.checkoutPercentage = playerStatistics[4];
+        ProBot.checkoutNumberPercentage = playerStatistics[5];  
+        ProBot.outPercentage = playerStatistics[6];
+        ProBot.twentyChance = playerStatistics[7];
+        ProBot.nineteenChance = playerStatistics[8];
+        ProBot.eighteenChance = playerStatistics[9];
+     }
+    public static int ProPlayer(int score){
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         int dart = 0;
         int checkoutIndex = 0;
             double numberChanceValue = Math.random() * 100;
-            if(score <= 170){
+            if(score <= 170  && Checkout.findCheckout(score, "ProBot") != null){
               String checkout = Checkout.findCheckout(score, "ProBot");
               String[] checkoutOptions = checkout.replaceAll("\\[|\\]", "").split(", ");
               int[] checkoutOptionsInt = new int[checkoutOptions.length];
