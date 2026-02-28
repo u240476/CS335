@@ -40,11 +40,18 @@ input{
     align-items: center;
     gap : 5px;
 }
-/*removing margin on text and links as they were automatically spaced very far apart */
 .login-link p,
 .forgot-password-link p,
 .login-link a,
 .Forgot-Password-link a {
   margin: 0;    
   padding: 0;   
+}
+.DivMessage {
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    min-height: 20px; 
+    max-width: 50vh;
+    text-align: center;
 }
