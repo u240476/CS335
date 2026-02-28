@@ -5,17 +5,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>AccountDetailsLogin</title>
         <link rel="stylesheet" href="CS335_styles.css">
+        <script src="Login.js" defer></script>
     </head>
-    <body>
         <div class="user-details-form-container">
-            <form action="/submit" method ="POST">
+            <form action="/submit" method ="POST" id="login-form">
                 <h1> Enter your details</h1>
                 <!-- prompting the user for their Email -->
-                <input type="email" id="Email" name="Email" placeholder="Email" class="Email">
+                <input type="email" id="Email2" name="Email" placeholder="Email" class="Email">
                 <!-- prompting user for their password-->
-                <input type="password" id="Password" name="Password" placeholder="Password" class="Password">
+                <input type="password" id="Password2" name="Password" placeholder="Password" class="Password">
                 <!--  submit button for when the user has filled out all of the fields above  -->
                 <input type="submit" value="submit" class="confirmation-button">
+                <div class="DivMessage" id="DivMessage2"></div>
                 <div class="link-section">  
                     <section class="login-link">
                         <p>dont have an account? </p>
